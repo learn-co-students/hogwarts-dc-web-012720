@@ -40,19 +40,23 @@ class Pigcard extends React.Component {
         this.setState({
             showMe: !this.state.showMe
         })
+        console.log(this.state.showMe)
     }
 
     render() {
         return (
-            <div className="pigTile" onClick={this.getPigDetail}>
+            (this.state.showMe ? (
+            <div className="pigTile">
+
                 <div>
                     <h3>{this.props.pigObj.name}</h3>
                     <img src={this.getImages()}/>
                 </div>
-
+                <button onClick={this.getPigDetail}>Get details</button>
+                <button onClick={() => this.hidePig()}>Hide Me!</button>
                 {this.state.details ? 
-                    (this.state.showMe ? (
-                        <div>
+                    // (this.state.showMe ? (
+                        (<div>
                             <ul>
                                 <li>speciality: {this.props.pigObj.specialty}</li>
                                 <li>greased: {this.props.pigObj.greased}</li>
@@ -60,13 +64,12 @@ class Pigcard extends React.Component {
                                 <li> Highest Medal Achieved: 
                                     {this.props.pigObj["highest medal achieved"]}
                                 </li>
-                                <li><button onClick={() => this.hidePig}>Hide Me!</button></li>
                             </ul>
-                        </div>) : (null)) 
-                : (<button onClick={this.hidePig}>Show Me!</button>)
+                        </div>) : (null) 
                 }
 
-            </div>
+            </div>) : (<button onClick={this.hidePig}>Show Me!</button>)
+        )
         )
     }
 }
