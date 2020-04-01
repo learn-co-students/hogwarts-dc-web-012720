@@ -31,11 +31,43 @@ class App extends Component {
     // () => console.log(this.state.filteredByGrease))
 
   }
+  
+  sortByFunc = (event) => {
+    let option = event.currentTarget.value
+
+    if (option === 'name') {
+      //sort by name
+      let newArr = this.state.hogsArray.sort(
+        (a,b) => (a.name > b.name) ? 1 : -1
+      )
+
+      this.setState({
+        hogsArray: newArr
+      })
+    } else if (option === 'weight'){
+      //sort by weight
+      let newArr = this.state.hogsArray.sort(
+        (a,b) => (a.weight > b.weight) ? 1 :-1
+      )
+
+      this.setState({
+        hogsArray: newArr
+      })
+    } else {
+      //reset
+      this.setState({
+        hogsArray: hogs
+      })
+    }
+    
+  }
+
   render() {
     return (
       <div className="App">
         <Nav />
-        <HogContainer hogsArray={this.state.hogsArray} filterByGrease = {this.filterByGrease}/>
+        <HogContainer hogsArray={this.state.hogsArray} filterByGrease = {this.filterByGrease}
+        sortByFunc = {this.sortByFunc}/>
 
       </div>
     );
