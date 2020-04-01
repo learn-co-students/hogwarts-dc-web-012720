@@ -5,7 +5,8 @@ class Pigcard extends React.Component {
     constructor(){
         super()
         this.state = {
-            details: false
+            details: false,
+            showMe: true
         }
     }
 
@@ -35,9 +36,14 @@ class Pigcard extends React.Component {
         })
     }
 
+    hidePig = () => {
+        this.setState({
+            showMe: !this.state.showMe
+        })
+    }
+
     render() {
         return (
-
             <div className="pigTile" onClick={this.getPigDetail}>
                 <div>
                     <h3>{this.props.pigObj.name}</h3>
@@ -45,18 +51,19 @@ class Pigcard extends React.Component {
                 </div>
 
                 {this.state.details ? 
-                (<div>
-                    <ul>
-                        <li>speciality: {this.props.pigObj.specialty}</li>
-                        <li>greased: {this.props.pigObj.greased}</li>
-                        <li>weight: {this.props.pigObj.weight}</li>
-                        <li> Highest Medal Achieved: 
-                            {this.props.pigObj["highest medal achieved"]}
-                        </li>
-                    </ul>
-                </div>)
-                :
-                (null)
+                    (this.state.showMe ? (
+                        <div>
+                            <ul>
+                                <li>speciality: {this.props.pigObj.specialty}</li>
+                                <li>greased: {this.props.pigObj.greased}</li>
+                                <li>weight: {this.props.pigObj.weight}</li>
+                                <li> Highest Medal Achieved: 
+                                    {this.props.pigObj["highest medal achieved"]}
+                                </li>
+                                <li><button onClick={() => this.hidePig}>Hide Me!</button></li>
+                            </ul>
+                        </div>) : (null)) 
+                : (<button onClick={this.hidePig}>Show Me!</button>)
                 }
 
             </div>
